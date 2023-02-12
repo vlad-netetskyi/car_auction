@@ -15,19 +15,20 @@ import java.util.Objects;
 public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private final Long id;
+    private Long id;
 
-    private final String brand;
-    private final String model;
-    private final String type;
-    private final int year;
-    private final double price;
-    private final String transmission;
-    private final String fuel;
-    private final double engineCapacity;
-    private final int seats;
-    private final String city;
-    private final byte[] img;
+    private String brand;
+    private String model;
+    private String type;
+    private int year;
+    private double price;
+    private String transmission;
+    private String fuel;
+    private double engineCapacity;
+    private int seats;
+    private String city;
+    private byte[] img;
+
     public Vehicle(Long id, String brand, String model, String type, int year, double price, String transmission, String fuel, double engineCapacity, int seats, String city, byte[] img) {
         this.id = id;
         this.brand = brand;
@@ -41,6 +42,9 @@ public class Vehicle {
         this.seats = seats;
         this.img = img;
         this.city = city;
+    }
+
+    public Vehicle() {
     }
 
     public Long getId() {
