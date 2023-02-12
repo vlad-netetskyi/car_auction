@@ -21,27 +21,29 @@ public class Vehicle {
     private String model;
     private String type;
     private int year;
-    private double price;
+    // private double price;
     private String transmission;
     private String fuel;
     private double engineCapacity;
     private int seats;
     private String city;
     private byte[] img;
+    private long engineMileage;
 
-    public Vehicle(Long id, String brand, String model, String type, int year, double price, String transmission, String fuel, double engineCapacity, int seats, String city, byte[] img) {
-        this.id = id;
+    public Vehicle(String brand, String model, String type, int year, String transmission, String fuel, double engineCapacity, int seats, String city, byte[] img, long engineMileage) {
+        // this.id = id;
         this.brand = brand;
         this.model = model;
         this.type = type;
         this.year = year;
-        this.price = price;
+        //  this.price = price;
         this.transmission = transmission;
         this.fuel = fuel;
         this.engineCapacity = engineCapacity;
         this.seats = seats;
         this.img = img;
         this.city = city;
+        this.engineMileage = engineMileage;
     }
 
     public Vehicle() {
@@ -67,9 +69,9 @@ public class Vehicle {
         return year;
     }
 
-    public double getPrice() {
+   /* public double getPrice() {
         return price;
-    }
+    }*/
 
     public byte[] getImg() {
         return img;
@@ -91,9 +93,14 @@ public class Vehicle {
         return seats;
     }
 
+    public long getEngineMileage() {
+        return engineMileage;
+    }
+
     public String getCity() {
         return city;
     }
+
 
     public String getBase64ImgFile() throws UnsupportedEncodingException {
         byte[] encodeBase64 = Base64.encodeBase64(img, false);
@@ -105,13 +112,14 @@ public class Vehicle {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vehicle vehicle = (Vehicle) o;
-        return year == vehicle.year && Double.compare(vehicle.price, price) == 0 && Objects.equals(id, vehicle.id) && Objects.equals(brand, vehicle.brand) && Objects.equals(model, vehicle.model) && Objects.equals(type, vehicle.type);
+        return year == vehicle.year  && Objects.equals(id, vehicle.id) && Objects.equals(brand, vehicle.brand) && Objects.equals(model, vehicle.model) && Objects.equals(type, vehicle.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, brand, model, type, year, price);
+        return Objects.hash(id, brand, model, type, year, engineMileage);
     }
+
 
     @Override
     public String toString() {
@@ -121,12 +129,13 @@ public class Vehicle {
                 ", model='" + model + '\'' +
                 ", type='" + type + '\'' +
                 ", year=" + year +
-                ", price=" + price +
                 ", transmission='" + transmission + '\'' +
                 ", fuel='" + fuel + '\'' +
                 ", engineCapacity=" + engineCapacity +
                 ", seats=" + seats +
+                ", city='" + city + '\'' +
                 ", img=" + Arrays.toString(img) +
+                ", engineMileage=" + engineMileage +
                 '}';
     }
 }
