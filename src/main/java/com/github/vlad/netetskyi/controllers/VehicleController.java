@@ -97,4 +97,11 @@ public class VehicleController {
         vehicleRepository.save(vehicle);
         return "redirect:/vehicles";
     }
+
+    @PostMapping("/vehicle/{id}/remove")
+    public String removeVehicle(@PathVariable(value = "id") long id, Model mod) {
+        Vehicle vehicle = vehicleRepository.findById(id).orElseThrow();
+        vehicleRepository.delete(vehicle);
+        return "redirect:/vehicles";
+    }
 }

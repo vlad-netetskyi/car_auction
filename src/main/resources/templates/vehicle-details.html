@@ -13,9 +13,11 @@
         <h3 th:text="${el.model}"></h3>
         <h3 th:text="${el.brand}"></h3>
         <h3 th:text="${el.year}"></h3>
-        <img alt="img" class="img-fluid" src="*{'data:image/jpeg;base64,'+${el.getBase64ImgFile()}"/>
-        <a th:href="'/vehicle/' + ${el.id} + '/edit'" class="btn btn-warning">Редагувати</a>
-        <a th:href="'/vehicle/' + ${el.id} + '/remove'" class="btn btn-warning">Видалити</a>
+        <img alt="img" class="img-fluid" src="*{'data:image/jpeg;base64,'+${el.getBase64ImgFile()}"/><br>
+        <a th:href="'/vehicle/' + ${el.id} + '/edit'" class="btn btn-warning">Редагувати</a><br><br>
+        <form th:action="'/vehicle/' + ${el.id} + '/remove'" method="post">
+            <button class="btn btn-warning" type="submit">Видалити</button>
+        </form>
     </div>
 </div>
 
