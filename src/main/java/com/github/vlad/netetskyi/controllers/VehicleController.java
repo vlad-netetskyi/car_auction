@@ -60,4 +60,41 @@ public class VehicleController {
         model.addAttribute("vehicle", res);
         return "vehicle-details";
     }
+
+    @GetMapping("/vehicle/{id}/edit")
+    public String vehicleEdit(@PathVariable(value = "id") long id, Model model) {
+        if (!vehicleRepository.existsById(id)) {
+            return "redirect:/vehicles";
+        }
+        Optional<Vehicle> vehicle = vehicleRepository.findById(id);
+        ArrayList<Vehicle> res = new ArrayList<>();
+        vehicle.ifPresent(res::add);
+        model.addAttribute("vehicle", res);
+        return "vehicle-edit";
+    }
+
+    @PostMapping("/vehicle/{id}/edit")
+    public String updateVehicle(@PathVariable(value = "id") long id, @RequestParam String city, @RequestParam String brand,
+                                @RequestParam String model, @RequestParam String type, @RequestParam String year, @RequestParam String fuel,
+                                @RequestParam double engineCapacity, @RequestParam String transmission, @RequestParam int seats,
+                                @RequestParam long engineMileage, @RequestParam Part car_img, Model mod) throws IOException {
+        InputStream fileContent = car_img.getInputStream();
+        byte[] fileAsByteArray = IOUtils.toByteArray(fileContent);
+        Vehicle vehicle = vehicleRepository.findById(id).orElseThrow();
+
+        vehicle.setBrand(brand);
+        vehicle.setCity(city);
+        vehicle.setEngineCapacity(engineCapacity);
+        vehicle.setEngineMileage(engineMileage);
+        vehicle.setFuel(fuel);
+        vehicle.setImg(fileAsByteArray);
+        vehicle.setModel(model);
+        vehicle.setSeats(seats);
+        vehicle.setTransmission(transmission);
+        vehicle.setType(type);
+        vehicle.setYear(Integer.parseInt(year));
+
+        vehicleRepository.save(vehicle);
+        return "redirect:/vehicles";
+    }
 }

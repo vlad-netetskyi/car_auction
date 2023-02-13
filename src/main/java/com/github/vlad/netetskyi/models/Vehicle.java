@@ -100,6 +100,49 @@ public class Vehicle {
         return city;
     }
 
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public void setTransmission(String transmission) {
+        this.transmission = transmission;
+    }
+
+    public void setFuel(String fuel) {
+        this.fuel = fuel;
+    }
+
+    public void setEngineCapacity(double engineCapacity) {
+        this.engineCapacity = engineCapacity;
+    }
+
+    public void setSeats(int seats) {
+        this.seats = seats;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setImg(byte[] img) {
+        this.img = img;
+    }
+
+    public void setEngineMileage(long engineMileage) {
+        this.engineMileage = engineMileage;
+    }
 
     public String getBase64ImgFile() throws UnsupportedEncodingException {
         byte[] encodeBase64 = Base64.encodeBase64(img, false);
