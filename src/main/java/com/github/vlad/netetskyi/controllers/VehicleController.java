@@ -45,6 +45,7 @@ public class VehicleController {
         byte[] fileAsByteArray = IOUtils.toByteArray(fileContent);
         Vehicle vehicle = new Vehicle(brand, model, type, Integer.parseInt(year), transmission, fuel, engineCapacity, seats, city,
                 fileAsByteArray, engineMileage);
+        mod.addAttribute("image", vehicle);
         vehicleRepository.save(vehicle);
         return "redirect:/vehicles";
     }
