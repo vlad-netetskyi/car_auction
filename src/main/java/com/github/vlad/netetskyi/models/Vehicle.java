@@ -1,9 +1,6 @@
 package com.github.vlad.netetskyi.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.apache.tomcat.util.codec.binary.Base64;
 
 import java.io.UnsupportedEncodingException;
@@ -27,6 +24,8 @@ public class Vehicle {
     private double engineCapacity;
     private int seats;
     private String city;
+    @Lob
+    @Column(name = "pic")
     private byte[] img;
     private long engineMileage;
 
@@ -112,7 +111,7 @@ public class Vehicle {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vehicle vehicle = (Vehicle) o;
-        return year == vehicle.year  && Objects.equals(id, vehicle.id) && Objects.equals(brand, vehicle.brand) && Objects.equals(model, vehicle.model) && Objects.equals(type, vehicle.type);
+        return year == vehicle.year && Objects.equals(id, vehicle.id) && Objects.equals(brand, vehicle.brand) && Objects.equals(model, vehicle.model) && Objects.equals(type, vehicle.type);
     }
 
     @Override

@@ -9,13 +9,13 @@
 <header th:insert="blocks/header :: header"></header>
 
 <div class="container mt-5">
-    <h1>Транспорт</h1>
-    <div th:each="el : ${vehicles}" class="alert alert-info mt-2">
+    <div th:each="el : ${vehicle}" class="alert alert-info mt-2">
         <h3 th:text="${el.model}"></h3>
         <h3 th:text="${el.brand}"></h3>
         <h3 th:text="${el.year}"></h3>
-        <img alt="img" class= "img-fluid" src="*{'data:image/jpeg;base64,'+${el.getBase64ImgFile()}"/>
-        <a th:href="'/vehicle/' + ${el.id}" class="btn btn-warning">Детальніше</a>
+        <img alt="img" class="img-fluid" src="*{'data:image/jpeg;base64,'+${el.getBase64ImgFile()}"/>
+        <a th:href="'/vehicle/' + ${el.id} + '/edit'" class="btn btn-warning">Редагувати</a>
+        <a th:href="'/vehicle/' + ${el.id} + '/remove'" class="btn btn-warning">Видалити</a>
     </div>
 </div>
 

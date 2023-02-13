@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.apache.commons.io.IOUtils;
@@ -14,6 +15,8 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Optional;
 
 
 @Controller
@@ -35,14 +38,26 @@ public class VehicleController {
 
     @PostMapping("/vehicles/add")
     public String AddVehicle(@RequestParam String city, @RequestParam String brand, @RequestParam String model, @RequestParam String type,
-                                 @RequestParam String year, @RequestParam String fuel, @RequestParam double engineCapacity,
-                                 @RequestParam String transmission, @RequestParam int seats, @RequestParam long engineMileage,
-                                 @RequestParam Part car_img, Model mod) throws IOException {
+                             @RequestParam String year, @RequestParam String fuel, @RequestParam double engineCapacity,
+                             @RequestParam String transmission, @RequestParam int seats, @RequestParam long engineMileage,
+                             @RequestParam Part car_img, Model mod) throws IOException {
         InputStream fileContent = car_img.getInputStream();
         byte[] fileAsByteArray = IOUtils.toByteArray(fileContent);
-        Vehicle vehicle = new Vehicle( brand, model, type, Integer.parseInt(year), transmission, fuel, engineCapacity, seats, city,
+        Vehicle vehicle = new Vehicle(brand, model, type, Integer.parseInt(year), transmission, fuel, engineCapacity, seats, city,
                 fileAsByteArray, engineMileage);
         vehicleRepository.save(vehicle);
         return "redirect:/vehicles";
+    }
+
+    @GetMapping("/vehicle/{id}")
+    public String vehicleDetails(@PathVariable(value = "id") long id, Model model) {
+        if (!vehicleRepository.existsById(id)) {
+            return "redirect:/vehicles";
+        }
+        Optional<Vehicle> vehicle = vehicleRepository.findById(id);
+        ArrayList<Vehicle> res = new ArrayList<>();
+        vehicle.ifPresent(res::add);
+        model.addAttribute("vehicle", res);
+        return "vehicle-details";
     }
 }
