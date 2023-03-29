@@ -11,10 +11,12 @@
 <div class="container mt-5">
     <h1>Транспорт</h1>
     <div th:each="el : ${vehicles}" class="alert alert-info mt-2">
-        <h3 th:text="${el.model}"></h3>
-        <h3 th:text="${el.brand}"></h3>
-        <h3 th:text="${el.year}"></h3>
-        <img alt="img" class= "img-fluid" scr="'data:image/jpeg;base64,'+@{el.getBase64ImgFile() }"/><br>
+        <h3 th:text="${el.year + ' ' + el.brand + ' ' + el.model}"></h3>
+        <p th:text="'Лот #: ' + ${el.id}"></p>
+        <p th:text="${el.city}"></p>
+
+        <img alt="img" class= "img-fluid" th:src="*{'data:image/png;base64,'+el.getBase64ImgFile}"/><br>
+
         <a th:href="'/vehicle/' + ${el.id}" class="btn btn-warning">Детальніше</a>
     </div>
 </div>

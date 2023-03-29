@@ -10,10 +10,17 @@
 
 <div class="container mt-5">
     <div th:each="el : ${vehicle}" class="alert alert-info mt-2">
-        <h3 th:text="${el.model}"></h3>
-        <h3 th:text="${el.brand}"></h3>
-        <h3 th:text="${el.year}"></h3>
-        <img alt="img" class="img-fluid" src="*{'data:image/jpeg;base64,'+${el.getBase64ImgFile()}"/><br>
+        <h3 th:text="${el.year + ' ' + el.brand + ' ' + el.model}"></h3>
+        <p th:text="'Лот : ' + ${el.id}"></p>
+        <p th:text="'Місто : ' + ${el.city}"></p>
+        <p th:text="'Об`єм двигуна : ' + ${el.engineCapacity}"></p>
+        <p th:text="'Пробіг : ' + ${el.engineMileage} + ' км.'"></p>
+        <p th:text="'Тип палива : ' + ${el.fuel}"></p>
+        <p th:text="'Кількість місць : ' + ${el.seats}"></p>
+        <p th:text="'Тип трансмісії : ' + ${el.transmission}"></p>
+        <p th:text="'Тип кузова : ' + ${el.type}"></p>
+
+        <img alt="img" class= "img-fluid" th:src="*{'data:image/png;base64,'+el.getBase64ImgFile}"/><br>
         <a th:href="'/vehicle/' + ${el.id} + '/edit'" class="btn btn-warning">Редагувати</a><br><br>
         <form th:action="'/vehicle/' + ${el.id} + '/remove'" method="post">
             <button class="btn btn-warning" type="submit">Видалити</button>

@@ -23,20 +23,25 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping("/register")
-    public String register(Model model) {
+    public String registerView(Model model) {
         return "register";
     }
 
     @PostMapping("/register")
-    public String AddVehicle(@RequestParam String name, @RequestParam String password, @RequestParam String firstName, @RequestParam String lastName,
-                             @RequestParam String email, @RequestParam String mobileNumber, Model model) throws IOException {
-        User user = new User(name,password, Role.USER,firstName,lastName,email,mobileNumber);
+    public String register(@RequestParam String name, @RequestParam String password, @RequestParam String firstName, @RequestParam String lastName,
+                           @RequestParam String email, @RequestParam String mobileNumber, Model model) throws IOException {
+        User user = new User(name, password, Role.USER, firstName, lastName, email, mobileNumber);
         userRepository.save(user);
         return "redirect:/";
     }
 
     @GetMapping("/login")
-    public String login(Model model) {
+    public String loginView(Model model) {
         return "login";
+    }
+
+    @PostMapping("/login")
+    public String login( Model model) throws IOException {
+        return "redirect:/vehicles";
     }
 }

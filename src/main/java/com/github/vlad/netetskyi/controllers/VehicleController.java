@@ -3,6 +3,7 @@ package com.github.vlad.netetskyi.controllers;
 import com.github.vlad.netetskyi.models.Vehicle;
 import com.github.vlad.netetskyi.repositories.VehicleRepository;
 import jakarta.servlet.http.Part;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,8 @@ import org.apache.commons.io.IOUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+
+import java.util.Base64;
 import java.util.Optional;
 
 
@@ -43,9 +46,11 @@ public class VehicleController {
                              @RequestParam Part car_img, Model mod) throws IOException {
         InputStream fileContent = car_img.getInputStream();
         byte[] fileAsByteArray = IOUtils.toByteArray(fileContent);
+        System.out.println("Added car photo with size = " + fileAsByteArray.length);
+
         Vehicle vehicle = new Vehicle(brand, model, type, Integer.parseInt(year), transmission, fuel, engineCapacity, seats, city,
                 fileAsByteArray, engineMileage);
-        mod.addAttribute("image", vehicle);
+
         vehicleRepository.save(vehicle);
         return "redirect:/vehicles";
     }

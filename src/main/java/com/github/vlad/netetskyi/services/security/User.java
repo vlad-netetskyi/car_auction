@@ -1,7 +1,6 @@
 package com.github.vlad.netetskyi.services.security;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

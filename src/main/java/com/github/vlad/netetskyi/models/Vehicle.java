@@ -5,13 +5,12 @@ import org.apache.tomcat.util.codec.binary.Base64;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Objects;
 
 @Entity
 public class Vehicle {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String brand;
@@ -24,8 +23,9 @@ public class Vehicle {
     private double engineCapacity;
     private int seats;
     private String city;
+
     @Lob
-    @Column(name = "pic")
+    @Column(length = 100000)
     private byte[] img;
     private long engineMileage;
 
@@ -145,8 +145,15 @@ public class Vehicle {
     }
 
     public String getBase64ImgFile() throws UnsupportedEncodingException {
-        byte[] encodeBase64 = Base64.encodeBase64(img, false);
-        return new String(encodeBase64, StandardCharsets.UTF_8);
+        System.out.println("Get image");
+        if (img != null && img.length > 0) {
+            byte[] encodeBase64 = Base64.encodeBase64(img, false);
+            return new String(encodeBase64, StandardCharsets.UTF_8);
+//            Base64.getMimeEncoder().encodeToString(byteData)
+        }
+
+        System.out.println("Error, no image for car = " + this.toString());
+        return null;
     }
 
     @Override
@@ -176,7 +183,6 @@ public class Vehicle {
                 ", engineCapacity=" + engineCapacity +
                 ", seats=" + seats +
                 ", city='" + city + '\'' +
-                ", img=" + Arrays.toString(img) +
                 ", engineMileage=" + engineMileage +
                 '}';
     }
